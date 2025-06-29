@@ -13,7 +13,7 @@
         zephyr,code-partition = &code_partition;
         zephyr,sram = &sram0;
         zephyr,flash = &flash0;
-        zmk,kscan = &kscan0;
+        zmk,kscan = &mock_kscan;
         zmk,battery = &vbatt;
         zmk,underglow = &led_strip;
         zmk,physical-layout = &eyelash_sofle_layout;
@@ -35,18 +35,12 @@
 		sensors = <&left_encoder>;
 	};
 
-    kscan0: kscan {
-        compatible = "zmk,kscan-gpio-matrix";
-        wakeup-source;
-        diode-direction = "col2row";
-        row-gpios
-            = <&gpio0 19 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&gpio0 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&gpio0 12 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&gpio0 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&gpio1 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            ;
-    };
+    mock_kscan: mock_kscan_0 {
+            compatible = "zmk,kscan-mock";
+            columns = <0>;
+            rows = <0>;
+            events = <0>;
+        };
 
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
@@ -130,13 +124,13 @@
          * Storage partition will be used by FCB/LittleFS/NVS
          * if enabled.
          */
-        storage_partition: partition@ec000 {
-            reg = <0x000ec000 0x00008000>;
-        };
+        // storage_partition: partition@ec000 {
+        //     reg = <0x000ec000 0x00008000>;
+        // };
 
-        boot_partition: partition@f4000 {
-            reg = <0x000f4000 0x0000c000>;
-        };
+        // boot_partition: partition@f4000 {
+        //     reg = <0x000f4000 0x0000c000>;
+        // };
     };
 };
 
